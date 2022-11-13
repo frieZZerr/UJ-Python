@@ -54,7 +54,7 @@ def is_positive(frac):
 	if frac[1] == 0:
 		return
 
-	if frac[0]*frac[1] >= 0:
+	if frac[0]*frac[1] > 0:
 		return True
 	return False
 
@@ -71,6 +71,16 @@ def is_zero(frac):
 def cmp_frac(frac1, frac2):
 	if frac1[1] == 0 or frac2[1] == 0:
 		return
+
+	f1 = frac2float(frac1)
+	f2 = frac2float(frac2)
+	
+	if f1 > f2:
+		return -1
+	elif f1 < f2:
+		return 1
+	else:
+		return 0
 
 # konwersja do float
 def frac2float(frac):
