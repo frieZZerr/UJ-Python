@@ -34,7 +34,7 @@ def __lt__( self, other ):
 
 ### `Backpack Class`:
 
-`Backpack` has *3 variables*:
+`Backpack` has *4 variables*:
 
 ```python
 def __init__( self ):
@@ -43,13 +43,15 @@ def __init__( self ):
 		self.value = 0
 ```
 
+<sup>*One variable - `max_capacity`, is set in `getData()` function.</sup>
+
 ### 1. GetData()
 
 First of all we're going to get the **data** from a given file:
 
 ```python
 # Reading input
-def getData(file):
+def getData( file, self ):
 	with open(file) as f:
 		self.max_capacity = int( f.readline() )
 		data = f.readlines()
