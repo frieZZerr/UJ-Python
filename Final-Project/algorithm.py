@@ -1,40 +1,17 @@
 from backpack import Backpack
-from item import Item
 
-#	Reading input
-def getData(file):
-	with open(file) as f:
-		capacity = int( f.readline() )
-		data = f.readlines()
+data1 = 'data1.txt'
+data2 = 'data2.txt'
+data3 = 'data3.txt'
 
-	#	Create backpack with given capacity
-	global backpack
-	backpack = Backpack(capacity)
+#	Initializing the backpack
+b = Backpack()
 
-	#	Initializing items list and adding them all to it
-	global items
-	items = []
-	for x in data:
-		pair = x.split()
-		item = Item( int(pair[0]), int(pair[1]) )
-		items.append(item)
+#	Getting data
+items_list = b.getData(data1)
 
-#	Finding most profitable items
-def findBestItems():
-	#	Iterating through all items
-	while len(items) > 0:
-		best_item = max(items)
-		
-		#	Adding the item to the backpack
-		if backpack.capacity+best_item.weight <= backpack.max_capacity:
-			backpack.items.append(best_item)
-			backpack.capacity += best_item.weight
-			backpack.value += best_item.value
+#	Finding best items
+b.findBestItems(items_list)
 
-		items.remove(best_item)
-
-#	Printing out items and their summed value
-def printItems():
-	for item in backpack.items:
-		print(item)
-	print("Value=%s" % (backpack.value) )
+#	Printing items
+b.printItems()
