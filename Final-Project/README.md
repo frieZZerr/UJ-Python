@@ -34,19 +34,14 @@ def __lt__( self, other ):
 
 ### `Backpack Class`:
 
-`Backpack` has *4 variables*:
+`Backpack` has *3 variables*:
 
 ```python
-def __init__( self, max_capacity ):
-		self.max_capacity = max_capacity
+def __init__( self ):
 		self.capacity = 0
 		self.items = []
 		self.value = 0
 ```
-
----
-
-## `Algorithm`:
 
 ### 1. GetData()
 
@@ -56,54 +51,47 @@ First of all we're going to get the **data** from a given file:
 # Reading input
 def getData(file):
 	with open(file) as f:
-		capacity = int( f.readline() )
+		self.max_capacity = int( f.readline() )
 		data = f.readlines()
+
 ```
 
 Also initialize the ***backpack*** as well as add all of the items to the list:
 
 ```python
-# Create backpack with given capacity
-global backpack
-backpack = Backpack(capacity)
-
-# Initializing items list and adding them all to it
-global items
-items = []
+#	Adding all the items to the list
+items_list = []
 for x in data:
-  pair = x.split()
-  item = Item( int(pair[0]), int(pair[1]) )
-  items.append(item)
+	pair = x.split()
+	item = Item( int(pair[0]), int(pair[1]) )
+	items_list.append(item)
+
+#	Sorting items list
+items_list.sort()
+return items_list
 ```
 
 ### 2. FindBestItems()
 
-To find the _"best items"_ we iterate through the *items list*.
+To find the _"best items"_ we iterate through the *items_list*.
 
-- `best_item` will be found by the *max()* function:
-
-```python
-def __lt__( self, other ):
-  return self.proportion < other.proportion
-```
-
-<sup>*It's possible because `Item` class has overridden the `<` operator.</sup>
+- current `best_item` is the last item in sorted `items_list`:
 
 ```python
-# Iterating through all items
-while len(items) > 0:
-  best_item = max(items)
+#	Iterating through all items
+while len(items_list) > 0:
+	best_item = items_list.pop()
 
-  # Adding the item to the backpack
-  if backpack.capacity+best_item.weight <= backpack.max_capacity:
-    backpack.items.append(best_item)
-    backpack.capacity += best_item.weight
-    backpack.value += best_item.value
-
-  items.remove(best_item)
+	#	Adding the item to the backpack
+	if self.capacity+best_item.weight <= self.max_capacity:
+		self.items.append(best_item)
+		self.capacity += best_item.weight
+		self.value += best_item.value
 ```
 
 <sup>*After we found the _"best item"_, we check if there's space for it in the Knapsack and either we **add it** or **remove it** _(if there's not enough space for it)_.</sup>
+
+---
 
 ### 3. PrintItems()
                                                                 
