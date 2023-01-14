@@ -12,7 +12,9 @@ class RandomQueue:
     # zwraca losowy element w czasie O(1)
     def remove(self):
         if len(self.queue) >= 1:
-            return self.queue.pop( random.randrange(len(self.queue)-1) )
+            idx = random.randrange(len(self.queue)-1)
+            self.queue[idx], self.queue[-1] = self.queue[-1], self.queue[idx]
+            return self.queue.pop()
 
     def is_empty(self):
         return not self.queue
